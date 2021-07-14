@@ -5,6 +5,7 @@ ML Deployment using Vertex AI
 This project was done following the ML deployment using the Vertex AI tutorial https://codelabs.developers.google.com/codelabs/vertex-ai-custom-models#0
 
 Below are the few things that i learnt :
+#### MISSION 1
 
 **1. Introduction to setting up environment**
 
@@ -52,10 +53,10 @@ Below are the few things that i learnt :
   FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-3
   WORKDIR /
 
-  # Copies the trainer code to the docker image.
+- Copies the trainer code to the docker image.
   COPY trainer /trainer
 
-  # Sets up the entry point to invoke the trainer.
+- Sets up the entry point to invoke the trainer.
   ENTRYPOINT ["python", "-m", "trainer.train"]
   
 - Add model training code in train.py(basically from your python file)
@@ -83,14 +84,14 @@ Below are the few things that i learnt :
   For this under mpg folder, create a new file deploy.py and write the following code:
   from google.cloud import aiplatform
 
-  # Create a model resource from public model assets
+- Create a model resource from public model assets
   model = aiplatform.Model.upload(
       display_name="mpg-imported",
       artifact_uri="gs://io-vertex-codelab/mpg-model/",
       serving_container_image_uri="gcr.io/cloud-aiplatform/prediction/tf2-cpu.2-3:latest"
   )
 
-  # Deploy the above model to an endpoint
+- Deploy the above model to an endpoint
   endpoint = model.deploy(
       machine_type="n1-standard-4"
   )
@@ -111,7 +112,7 @@ Below are the few things that i learnt :
       endpoint_name="projects/1000367416351/locations/us-central1/endpoints/5209169433053888512"
   )
 
-  # A test example we'll send to our model for prediction
+- A test example we'll send to our model for prediction
   test_mpg = [1, 2, 3, 2, -2, -1, -2, -1, 0]
 
   response = endpoint.predict([test_mpg])
@@ -134,6 +135,19 @@ Below are the few things that i learnt :
 - To delete the endpoint you deployed, navigate to the Endpoints section of your Vertex console and click the delete icon:
   ![image](https://user-images.githubusercontent.com/56925128/125647628-111cb78a-e7bf-4069-ba2e-37c6b677b9f5.png)
   ![image](https://user-images.githubusercontent.com/56925128/125647722-6e58a0a9-8e2e-4c7e-8be5-b4844588a86f.png)
+  
+  
+  
+  #### MISSION 3
+  
+- Make a POST request to the following URL.
+  ![image](https://user-images.githubusercontent.com/56925128/125674724-7b108a10-6c50-44d7-862c-cf4e90bda097.png)
+  
+  ![image](https://user-images.githubusercontent.com/56925128/125674907-9c1aef1d-3b3a-4a19-93f8-785dfbde9cc9.png)
+
+  ![image](https://user-images.githubusercontent.com/56925128/125674962-c5a0d3a3-eb56-4133-9100-80301c6804e1.png)
+
+
 
 
 
