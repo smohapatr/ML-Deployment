@@ -62,13 +62,18 @@ Below are the few things that i learnt :
 - Add model training code in train.py(basically from your python file)
 - In the terminal in the cloud shell , run the following command to add your own bucket name to the file:
   sed -i "s|BUCKET_NAME|$BUCKET_NAME|g" trainer/train.py
+  
 - Build and test the container locally
+
   run the following to define a variable with the URI of your container image in Google Container Registry:
   IMAGE_URI="gcr.io/$GOOGLE_CLOUD_PROJECT/mpg:v1"
+  
   build the container by running the following from the root of your mpg directory:
   docker build ./ -t $IMAGE_URI
+  
   Once you've built the container, push it to Google Container Registry:
   docker push $IMAGE_URI
+  
   ![image](https://user-images.githubusercontent.com/56925128/125645064-3e79ad89-14df-47c4-b0f6-84bcde0fe5b6.png)
   
 **4. Run a training job on Vertex AI**
@@ -85,6 +90,7 @@ Below are the few things that i learnt :
   from google.cloud import aiplatform
 
 - Create a model resource from public model assets
+
   model = aiplatform.Model.upload(
       display_name="mpg-imported",
       artifact_uri="gs://io-vertex-codelab/mpg-model/",
@@ -92,6 +98,7 @@ Below are the few things that i learnt :
   )
 
 - Deploy the above model to an endpoint
+
   endpoint = model.deploy(
       machine_type="n1-standard-4"
   )
